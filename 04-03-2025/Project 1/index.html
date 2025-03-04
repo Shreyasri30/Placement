@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student's Connect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('student.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .header {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            background-color: rgba(246, 100, 3, 0.9);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            gap: 50px;
+        }
+        .about-section {
+            width: 35%;
+            padding: 20px;
+            border: 2px solid #000;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .about-section h3 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        .about-text {
+            text-align: justify;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .content {
+            width: 30%;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .content h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .register-btn { background-color: #007bff; }
+        .register-btn:hover { background-color: #0056b3; transform: scale(1.05); }
+        .enroll-btn { background-color: #28a745; }
+        .enroll-btn:hover { background-color: #218838; transform: scale(1.05); }
+        .login-btn { background-color: #dc3545; }
+        .login-btn:hover { background-color: #b52b37; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        Student's Connect
+    </div>
+
+    <div class="container">
+        <div class="about-section">
+            <h3>About Us</h3>
+            <p class="about-text">
+                The Student's Connect serves as the bridge between students and faculty, ensuring that student voices are heard
+                and concerns are addressed. Our mission is to create a dynamic and inclusive environment where students can actively
+                participate in various academic, cultural, and extracurricular activities. We aim to foster leadership, teamwork,
+                and problem-solving skills while organizing events, addressing student concerns, and enhancing the overall student experience.
+            </p>
+        </div>
+
+        <div class="content">
+            <h3>New User Creation</h3>
+            <a href="register.html" class="btn register-btn">Register</a>
+            <a href="enroll.html" class="btn enroll-btn">Enroll</a>
+            <a href="login.html" class="btn login-btn">Login</a>
+        </div>
+    </div>
+
+</body>
+</html>
