@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            max-width: 900px;
+            margin: 20px auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .info {
+            flex-grow: 1;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .header p {
+            font-size: 16px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 4px solid white;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ffcc00;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            text-align: left;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+        }
+
+        .projects {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .projects div {
+            width: 48%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="info">
+            <h1>Shreyasri R</h1>
+            <p>Aspiring Software Engineer | BE CSE Student at SIST | Skilled and Certified in Full Stack Development, AI/ML, C, Java, CSS, Python, JavaScript, Data Science, Networking | Passionate about Problem-Solving & Emerging Tech</p>
+        </div>
+        <div class="profile-pic">
+            <img src="photo.jpg" alt="Your Photo">
+        </div>
+    </div>
+    
+    <div class="nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="container">
+        <div class="section" id="about">
+            <h2>About Me</h2>
+            <p>I am a highly driven and proactive Bachelor of Engineering student specializing in Computer Science and Engineering, with a robust foundation in programming languages such as C, Java, and Python. My passion for technology fuels my commitment to continuous learning, as I actively deepen my expertise in software development, algorithms, and data structures. I thrive in environments that challenge my problem-solving abilities, where I can innovate and push boundaries to deliver impactful solutions.
+                With a growth mindset, I am dedicated to refining my coding proficiency and expanding my technical skill set. I am eager to apply my knowledge to real-world projects, where I can contribute to meaningful outcomes while gaining hands-on experience. Actively seeking internship opportunities, I aim to immerse myself in the dynamic tech industry, leveraging every opportunity to grow both professionally and personally, and make a lasting impact in the field.</p>
+        </div>
+
+        <h2 style="text-align: left; margin-bottom: 15px;">Projects</h2>
+        <div class="projects" id="projects">
+            <div>
+                <h3>Soru Thaan Mukkiyam</h3>
+                <p>A food discovery website that helps users find the best eateries based on reviews, ratings, and location. Built using modern web technologies, it provides an intuitive user experience for food lovers.</p>
+            </div>
+            <div>
+                <h3>Shyntax</h3>
+                <p>Shyntax is a tool for keeping GST records, filing, tax calculation, and tracking. The objective is to make tax filing simple and hassle-free for businesses and individuals by providing an efficient and automated system for managing taxes.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;"></div>
+        <div class="section" id="contact">
+            <h2>Contact</h2>
+            <p>Email: ramkishreya@gmail.com</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<head>
+    <title>Flexbox Calculator</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fcfbfb;
+        }
+
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgb(0, 0, 0);
+        }
+
+        .display {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 80px;
+            padding: 10px;
+            background: #333;
+            color: white;
+            font-size: 2rem;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 1.5rem;
+            color: white;
+            background: #444;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #555;
+        }
+
+        .operator {
+            background: #6c6761;
+        }
+
+        .operator:hover {
+            background: #80776d;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">0</div>
+        <div class="buttons">
+            <div class="row">
+                <button class="btn">7</button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+                <button class="btn operator">/</button>
+            </div>
+            <div class="row">
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+                <button class="btn operator">*</button>
+            </div>
+            <div class="row">
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+                <button class="btn operator">-</button>
+            </div>
+            <div class="row">
+                <button class="btn">0</button>
+                <button class="btn">.</button>
+                <button class="btn">=</button>
+                <button class="btn operator">+</button>
+            </div>
+            <div class="row">
+                <button class="btn clear">C</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
