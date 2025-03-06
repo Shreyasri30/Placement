@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+        <h1>COUNTER</h1>
+        <p id = "result">0</p>
+        <button onclick="sub()">-1</button>
+        <button onclick="add()">+1</button>
+        <button onclick="mul()">*2</button>
+        <button onclick="div()">/2</button>
+        <button onclick="mod()">%2</button>
+        <button onclick="reset()">Reset</button>
+        </div>
+        <script>
+            let count = 0
+            function add(){
+                count = count+1
+                document.getElementById('result').innerHTML = count
+            }
+            function sub(){
+                count = count-1
+                document.getElementById('result').innerHTML = count
+            }
+            function mul(){
+                count = count*2
+                document.getElementById('result').innerHTML = count
+            }
+            function div(){
+                count = count/2
+                document.getElementById('result').innerHTML = count
+            }
+            function mod(){
+                count = count%2
+                document.getElementById('result').innerHTML = count
+            }
+            function reset(){
+                count = 0
+                document.getElementById('result').innerHTML = count
+            }
+            document.getElementById('result').innerHTML = count
+
+        </script>
+    </body>
+</html>
