@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +15,6 @@
             padding: 0px;
             margin: 0px;
             font-family: "Yeseva One", serif;
-
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,7 +22,6 @@
         .navbar {
             width: 100%;
             height: 50px;
-
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -33,7 +32,6 @@
         .nav-brand {
             height: 80%;
             padding: 0px 10px;
-
             display: flex;
             flex-direction: row;
             justify-content: start;
@@ -41,7 +39,6 @@
         }
         .nav-info {
             height: 80%;
-
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -55,7 +52,6 @@
         }
         .nav-signup {
             height: 80%;
-
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -118,15 +114,24 @@
         }
 
         .food-item {
-            width: 200px;
-            height: 100%;
-            margin-right: 20px;
-            padding: 10px;
+    width: 200px;
+    height: 100%;
+    margin-right: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s ease-in-out; 
+    border: 2px solid transparent; 
+    border-radius: 10px; 
+}
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+.food-item:hover {
+    border: 2px solid rgb(170, 17, 197); 
+    transform: scale(1.05); 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
 
         .dishes-container {
             width: 80%;
@@ -168,6 +173,55 @@
             width: 95%;
             /*background-color: pink;*/
         }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+            margin-top: 5px;
+        }
+        .dish {
+            position: relative; /* Ensure button is positioned inside the dish */
+            width: 300px;
+            height: 350px;
+            border: 1px solid #121212;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            overflow: hidden;
+        }
+
+    .dish-image-container {
+        position: relative;
+        width: 100%;
+        height: 60%;
+    }
+
+    .add-btn {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background-color: white;
+        border: none;
+        color: #121212;
+        font-size: 18px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .add-btn:hover {
+        background-color: orange;
+        color: white;
+    }
+
 
         @media only screen and (max-width: 600px) {
             body {
@@ -275,60 +329,60 @@
     <script>
     const foodData = {
         "Salad": [
-            { name: "Caesar Salad", price: "₹150", image: "./assets/salad1.png" },
-            { name: "Greek Salad", price: "₹180", image: "./assets/salad2.png" },
-            { name: "Fruit Salad", price: "₹120", image: "./assets/salad3.png" },
-            { name: "American Salad", price: "₹220", image: "./assets/salad4.png" },
-            { name: "Pesto Salad", price: "₹170", image: "./assets/salad5.png" },
-            { name: "German Salad", price: "₹190", image: "./assets/salad6.png" }
+            { name: "Caesar Salad", price: "₹150", image: "./assets/salad1.png", rating: 4.5 },
+            { name: "Greek Salad", price: "₹180", image: "./assets/salad2.png", rating: 4.0 },
+            { name: "Fruit Salad", price: "₹120", image: "./assets/salad3.png", rating: 4.5 },
+            { name: "American Salad", price: "₹220", image: "./assets/salad4.png", rating: 4.0 },
+            { name: "Pesto Salad", price: "₹170", image: "./assets/salad5.png", rating: 4.5},
+            { name: "German Salad", price: "₹190", image: "./assets/salad6.png", rating: 5.0 }
         ],
         "Rolls": [
-            { name: "Tandoori Roll", price: "₹100", image: "./assets/roll1.png" },
-            { name: "Spring Roll", price: "₹100", image: "./assets/roll2.png" },
-            { name: "Fried Roll", price: "₹100", image: "./assets/roll3.png" },
-            { name: "Chicken Roll", price: "₹160", image: "./assets/roll4.webp" }
+            { name: "Tandoori Roll", price: "₹100", image: "./assets/roll1.png", rating: 4.5 },
+            { name: "Spring Roll", price: "₹100", image: "./assets/roll2.png", rating: 4.5 },
+            { name: "Fried Roll", price: "₹100", image: "./assets/roll3.png", rating: 4.5 },
+            { name: "Chicken Roll", price: "₹160", image: "./assets/roll4.webp", rating: 4.5 }
         ],
-        "Deserts": [
-            { name: "Berry Ice cream", price: "₹100", image: "./assets/dessert1.png" },
-            { name: "Fruits Ice Cream", price: "₹150", image: "./assets/dessert2.png" },
-            { name: "Strawberry Cup", price: "₹120", image: "./assets/dessert3.png" },
-            { name: "Vanilla Confetti Ice Cream", price: "₹110", image: "./assets/dessert4.png" },
-            { name: "Waffle", price: "₹200", image: "./assets/dessert5.png" }
+        "Desserts": [
+            { name: "Berry Ice cream", price: "₹100", image: "./assets/dessert1.png", rating: 4.5 },
+            { name: "Fruits Ice Cream", price: "₹150", image: "./assets/dessert2.png", rating: 4.5 },
+            { name: "Strawberry Cup", price: "₹120", image: "./assets/dessert3.png", rating: 4.5 },
+            { name: "Vanilla Confetti Ice Cream", price: "₹110", image: "./assets/dessert4.png", rating: 4.5 },
+            { name: "Waffle", price: "₹200", image: "./assets/dessert5.webp", rating: 4.5 }
         ],
         "Sandwich": [
-            { name: "Spinach n Corn Sandwich", price: "₹140", image: "./assets/sandwich1.png" },
-            { name: "Club Sandwich", price: "₹250", image: "./assets/sandwich2.png" },
-            { name: "Bacon Sandwich", price: "₹190", image: "./assets/sandwich3.png" },
-            { name: "Veg Sandwich", price: "₹120", image: "./assets/sandwich4.png" },
-            { name: "Grilled Sandwich", price: "₹180", image: "./assets/sandwich5.webp" }
+            { name: "Spinach n Corn Sandwich", price: "₹140", image: "./assets/sandwich1.png", rating: 4.5 },
+            { name: "Club Sandwich", price: "₹250", image: "./assets/sandwich2.png", rating: 4.5 },
+            { name: "Bacon Sandwich", price: "₹190", image: "./assets/sandwich3.png", rating: 4.5 },
+            { name: "Veg Sandwich", price: "₹120", image: "./assets/sandwich4.png", rating: 4.5 },
+            { name: "Grilled Sandwich", price: "₹180", image: "./assets/sandwich5.webp", rating: 4.5 }
         ],
         "Cake": [
-            { name: "Blueberry Cheesecake", price: "₹340", image: "./assets/cake1.png" },
-            { name: "Strawberry Cupcake", price: "₹300", image: "./assets/cake2.png" },
-            { name: "Strawberry Cheescake", price: "₹350", image: "./assets/cake3.png" },
-            { name: "Apple Cinnamon Cheescake", price: "₹300", image: "./assets/cake4.png" },
-            { name: "Rainbow Pastry", price: "₹500", image: "./assets/cake5.webp" }
+            { name: "Blueberry Cheesecake", price: "₹340", image: "./assets/cake1.png", rating: 4.5 },
+            { name: "Strawberry Cupcake", price: "₹300", image: "./assets/cake2.png", rating: 4.5 },
+            { name: "Strawberry Cheescake", price: "₹350", image: "./assets/cake3.png" , rating: 4.5},
+            { name: "Apple Cinnamon Cheescake", price: "₹300", image: "./assets/cake4.png", rating: 4.75 },
+            { name: "Rainbow Pastry", price: "₹500", image: "./assets/cake5.webp", rating: 4.5 }
 
         ],
         "Pure Veg": [
-            { name: "Rajma Chawal", price: "₹220", image: "./assets/pureveg1.webp" },
-            { name: "Veg Sandwich", price: "₹180", image: "./assets/pureveg2.jpeg" },
-            { name: "Vegetable Salad", price: "₹150", image: "./assets/pureveg3.png" }
+            { name: "Rajma Chawal", price: "₹220", image: "./assets/pureveg1.webp", rating: 4.5 },
+            { name: "Veg Sandwich", price: "₹180", image: "./assets/pureveg2.jpeg", rating: 4.5 },
+            { name: "Vegetable Salad", price: "₹150", image: "./assets/pureveg3.png", rating: 4.5 }
 
         ],
         "Pasta": [
-            { name: "Mac n Cheese", price: "₹200", image: "./assets/pasta1.png" },
-            { name: "Mac n Cheese with Bacon", price: "₹210", image: "./assets/pasta2.png" },
-            { name: "Red Sauce Pasta", price: "₹310", image: "./assets/pasta3.png" },
-            { name: "Alfredo Pasta", price: "₹270", image: "./assets/pasta4.png" },
-            { name: "Penne Arabiata", price: "₹250", image: "./assets/pasta5.webp" }
+            { name: "Mac n Cheese", price: "₹200", image: "./assets/pasta1.png", rating: 4.5 },
+            { name: "Mac n Cheese with Bacon", price: "₹210", image: "./assets/pasta2.png", rating: 4.5 },
+            { name: "Red Sauce Pasta", price: "₹310", image: "./assets/pasta3.png", rating: 4.5 },
+            { name: "Alfredo Pasta", price: "₹270", image: "./assets/pasta4.png", rating: 4.5 },
+            { name: "Penne Arabiata", price: "₹250", image: "./assets/pasta5.webp", rating: 4.5 }
         ],
         "Noodles": [
-            { name: "Hakka Noodles", price: "₹150", image: "./assets/noodles1.png" },
-            { name: "Chow Mein", price: "₹160", image: "./assets/noodles2.png" },
-            { name: "Japanese Ramen", price: "₹160", image: "./assets/noodles3.png" },
-            { name: "American Chopsuey", price: "₹160", image: "./assets/noodles4.png" },
-            { name: "Korean Ramen", price: "₹160", image: "./assets/noodles5.webp" }
+            { name: "Hakka Noodles", price: "₹150", image: "./assets/noodles1.png", rating: 4.5 },
+            { name: "Chow Mein", price: "₹160", image: "./assets/noodles2.png", rating: 4.5 },
+            { name: "Japanese Ramen", price: "₹160", image: "./assets/noodles3.png", rating: 4.5 },
+            { name: "American Chopsuey", price: "₹160", image: "./assets/noodles4.png", rating: 4.5 },
+            { name: "Korean Ramen", price: "₹160", image: "./assets/noodles5.webp", rating: 4.5 }
         ]
     };
 
@@ -349,29 +403,57 @@
     });
 
     function showDishes(category) {
-        const dishesContainer = document.querySelector(".dishes");
-        let dishesHTML = "";
+    const dishesContainer = document.querySelector(".dishes");
+    let dishesHTML = "";
 
-        if (foodData[category]) {
-            foodData[category].forEach(dish => {
-                dishesHTML += `
-                    <div class="dish">
+    if (foodData[category]) {
+        foodData[category].forEach(dish => {
+            let stars = getStarRating(dish.rating); 
+
+            dishesHTML += `
+                <div class="dish">
+                    <div class="dish-image-container">
                         <img src="${dish.image}" class="dish-image" style="object-fit: cover; width: 100%; height: 60%; border-top-left-radius: 10px; border-top-right-radius: 10px;"/>
-                        <div class="dish-container">
-                            <div class="dish-info">
-                                <h4>${dish.name}</h4>
-                                <p>${dish.price}</p>
-                            </div>
+                        <button class="add-btn" onclick="addToCart('${dish.name}', '${dish.price}')">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="dish-container">
+                        <div class="dish-info">
+                            <h4>${dish.name}</h4>
+                            <p>${dish.price}</p>
+                            <div class="stars">${stars}</div>
                         </div>
                     </div>
-                `;
-            });
-        }
-
-        dishesContainer.innerHTML = dishesHTML;
+                </div>
+            `;
+        });
     }
+
+    dishesContainer.innerHTML = dishesHTML;
+}
+
+function getStarRating(rating) {
+    let fullStars = Math.floor(rating);
+    let halfStar = rating % 1 !== 0;
+    let starsHTML = "";
+
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += `<i class="fa-solid fa-star" style="color: orange;"></i>`;
+    }
+    if (halfStar) {
+        starsHTML += `<i class="fa-solid fa-star-half-alt" style="color: orange;"></i>`;
+    }
+    while (starsHTML.length < 5) {
+        starsHTML += `<i class="fa-regular fa-star" style="color: orange;"></i>`;
+    }
+    return starsHTML;
+}
+
+function addToCart(name, price) {
+    alert(`Added ${name} to cart for ${price}`);
+}
     
 </script>
-
 </body>
 </html>
