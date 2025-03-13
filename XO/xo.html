@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border: 2px solid #333;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .cell:hover {
+            background-color: lightgreen;
+        }
+
+        .winner {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tic Tac Toe</h1>
+    <div class="game-container">
+        <div class="board">
+            <div class="cell" onclick="play(this, 0)"></div>
+            <div class="cell" onclick="play(this, 1)"></div>
+            <div class="cell" onclick="play(this, 2)"></div>
+            <div class="cell" onclick="play(this, 3)"></div>
+            <div class="cell" onclick="play(this, 4)"></div>
+            <div class="cell" onclick="play(this, 5)"></div>
+            <div class="cell" onclick="play(this, 6)"></div>
+            <div class="cell" onclick="play(this, 7)"></div>
+            <div class="cell" onclick="play(this, 8)"></div>
+        </div>
+        <div class="winner" id="winnerMessage"></div>
+        <button onclick="reset()">Reset Game</button>
+    </div>
+
+    <script>
+        let player = 'X';
+        let cells = document.getElementsByClassName('cell');
+
+        function play(cell, index) {
+            if (cell.innerHTML === '') {
+                cell.innerHTML = player;
+                if (checkWin(player)) {
+                    document.getElementById('winnerMessage').innerText = `${player} Wins!`;
+                    disableBoard();
+                    return;
+                }
+                if (isDraw()) {
+                    document.getElementById('winnerMessage').innerText = `It's a Draw!`;
+                    return;
+                }
+                player = (player === 'X') ? 'O' : 'X';
+            }
+        }
+
+        function checkWin(player) {
+            const winPatterns = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                [0, 4, 8], [2, 4, 6]  // Diagonals
+            ];
+
+            return winPatterns.some(pattern => 
+                pattern.every(index => cells[index].innerHTML === player)
+            );
+        }
+
+        function isDraw() {
+            return [...cells].every(cell => cell.innerHTML !== '');
+        }
+
+        function disableBoard() {
+            for (let cell of cells) {
+                cell.onclick = null;
+            }
+        }
+
+        function reset() {
+            for (let cell of cells) {
+                cell.innerHTML = '';
+                cell.onclick = function () {
+                    play(this, [...cells].indexOf(this));
+                };
+            }
+            document.getElementById('winnerMessage').innerText = '';
+            player = 'X';
+        }
+    </script>
+
+</body>
+</html>
