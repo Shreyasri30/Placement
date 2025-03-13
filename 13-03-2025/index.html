@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 2px dashed #ddd;
+            background-color: #ffffff;
+        }
+        h3 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .choices button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: white;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .choices img, .scoreboard img {
+            width: 70px;
+            height: 70px;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px;
+        }
+        .scoreboard {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        .scoreboard td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            height: 100px;
+            width: 150px;
+        }
+        .scoreboard img {
+            display: block;
+            margin: auto;
+        }
+        .reset-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ddd;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Rock Paper Scissors</h3>
+        <div class="choices">
+            <button onclick="play('Rock')"><img src="assets/1.jpeg" alt="Rock"></button>
+            <button onclick="play('Paper')"><img src="assets/2.jpeg" alt="Paper"></button>
+            <button onclick="play('Scissors')"><img src="assets/3.jpeg" alt="Scissors"></button>
+        </div>
+        <p class="result" id="game-result">-</p>
+        <table class="scoreboard">
+            <tr>
+                <td><b>You</b></td>
+                <td><b>Computer</b></td>
+            </tr>
+            <tr>
+                <td><img id="user-choice" src="" alt="-" style="display:none;"></td>
+                <td><img id="computer-choice" src="" alt="-" style="display:none;"></td>
+            </tr>
+        </table>
+        <table class="scoreboard">
+            <tr>
+                <td>Wins: <span id="wins">0</span></td>
+                <td>Losses: <span id="losses">0</span></td>
+                <td>Ties: <span id="ties">0</span></td>
+            </tr>
+        </table>
+        <button class="reset-btn" onclick="reset()">Reset</button>
+    </div>
+    <script>
+        let wins = 0, losses = 0, ties = 0, rounds = 0;
+
+        function play(userChoice) {
+            const choices = ['Rock', 'Paper', 'Scissors'];
+            const compChoice = choices[Math.floor(Math.random() * choices.length)];
+            
+            document.getElementById('user-choice').src = `assets/${choices.indexOf(userChoice) + 1}.jpeg`;
+            document.getElementById('computer-choice').src = `assets/${choices.indexOf(compChoice) + 1}.jpeg`;
+            document.getElementById('user-choice').style.display = "block";
+            document.getElementById('computer-choice').style.display = "block";
+            
+            let resultMessage = '';
+            if (userChoice === compChoice) {
+                resultMessage = 'Tie';
+                ties++;
+            } else if (
+                (userChoice === 'Rock' && compChoice === 'Scissors') ||
+                (userChoice === 'Paper' && compChoice === 'Rock') ||
+                (userChoice === 'Scissors' && compChoice === 'Paper')
+            ) {
+                resultMessage = 'You win!';
+                wins++;
+            } else {
+                resultMessage = 'You lose!';
+                losses++;
+            }
+            
+            document.getElementById('game-result').innerText = resultMessage;
+            updateScore();
+            rounds++;
+            
+            if (rounds === 4) {
+                let winRate = wins / rounds;
+                let lossRate = losses / rounds;
+                if (winRate > lossRate) {
+                    alert('You win!');
+                } else if (lossRate > winRate) {
+                    alert('You lose!');
+                } else {
+                    alert('Tie!');
+                }
+                reset();
+            }
+        }
+        
+        function updateScore() {
+            document.getElementById('wins').innerText = wins;
+            document.getElementById('losses').innerText = losses;
+            document.getElementById('ties').innerText = ties;
+        }
+        
+        function reset() {
+            wins = 0;
+            losses = 0;
+            ties = 0;
+            rounds = 0;
+            document.getElementById('game-result').innerText = '-';
+            document.getElementById('user-choice').style.display = "none";
+            document.getElementById('computer-choice').style.display = "none";
+            updateScore();
+            alert('Game Reset Successfully');
+        }
+    </script>
+</body>
+</html>
