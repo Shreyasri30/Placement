@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Without Bootstrap</title>
+ <style>
+ /* Custom CSS for responsiveness */
+ * {
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ }
+
+ body {
+ font-family: Arial, sans-serif;
+ }
+
+ /* Navbar */
+ .navbar {
+ background: #0d6efd;
+ color: white;
+ padding: 15px;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ flex-wrap: wrap;
+ }
+
+ .nav-links {
+ display: none;
+ width: 100%;
+ }
+
+ .nav-links.active {
+ display: block;
+ }
+
+ .nav-links ul {
+ list-style: none;
+ }
+
+ .nav-links li {
+ padding: 10px 0;
+ }
+
+ .nav-links a {
+ color: white;
+ text-decoration: none;
+ }
+
+ .toggle-btn {
+ background: none;
+ border: none;
+ color: white;
+ font-size: 24px;
+ cursor: pointer;
+ }
+
+ /* Grid System */
+ .container {
+ width: 100%;
+ max-width: 1200px;
+ margin: 20px auto;
+ padding: 0 15px;
+ }
+
+ .row {
+ display: flex;
+ flex-wrap: wrap;
+ margin: 0 -15px;
+ }
+
+ .col {
+ padding: 0 15px;
+ margin-bottom: 20px;
+ width: 100%;
+ }
+
+ .custom-box {
+ background: #f0f0f0;
+ border: 1px solid #ddd;
+ padding: 20px;
+ text-align: center;
+ }
+
+ /* Responsive Breakpoints */
+ @media (min-width: 768px) {
+ .toggle-btn {
+ display: none;
+ }
+
+ .nav-links {
+ display: block;
+ width: auto;
+ }
+
+ .nav-links ul {
+ display: flex;
+ gap: 20px;
+ }
+
+ .col {
+ width: 33.33%;
+ }
+ }
+ </style>
+</head>
+<body>
+ <!-- Custom Navbar -->
+ <nav class="navbar">
+ <a href="#" class="logo">MyApp</a>
+ <button class="toggle-btn">☰</button>
+ <div class="nav-links">
+ <ul>
+ <li><a href="#">Home</a></li>
+ <li><a href="#">Features</a></li>
+ <li><a href="#">Contact</a></li>
+ </ul>
+ </div>
+ </nav>
+ <!-- Custom Grid -->
+ <div class="container">
+ <div class="row">
+ <div class="col">
+ <div class="custom-box">
+ <h3>Feature 1</h3>
+ <p>Works on all devices</p>
+ </div>
+ </div>
+ <div class="col">
+ <div class="custom-box">
+ <h3>Feature 2</h3>
+ <p>Manual media queries</p>
+ </div>
+ </div>
+ <div class="col">
+ <div class="custom-box">
+ <h3>Feature 3</h3>
+ <p>More control</p>
+ </div>
+ </div>
+ </div>
+ </div>
+ <!-- JavaScript for mobile menu -->
+ <script>
+ document.querySelector('.toggle-btn').addEventListener('click', function() {
+ document.querySelector('.nav-links').classList.toggle('active');
+ });
+ </script>
+</body>
+</html>
