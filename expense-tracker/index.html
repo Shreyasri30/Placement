@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header-row">
+      <h1>Expense Tracker</h1>
+      <div class="period-select">
+        <select id="month"></select>
+        <select id="year"></select>
+      </div>
+    </div>
+
+    <div class="form">
+      <label>
+        Expense Name
+        <input type="text" id="name" placeholder="Eg. Groceries, Shopping, Movie">
+      </label>
+
+      <label>
+        Amount ($)
+        <input type="number" id="amount" placeholder="Enter amount">
+      </label>
+
+      <label>
+        Category
+        <select id="category">
+          <option value="">Select category</option>
+          <option>Food</option>
+          <option>Travel</option>
+          <option>Shopping</option>
+          <option>Bills</option>
+          <option>Other</option>
+        </select>
+      </label>
+
+      <label>
+        Date
+        <input type="date" id="date">
+      </label>
+
+      <button id="addBtn" type="button">Add Expense</button>
+    </div>
+
+    <h3>Recent Expenses <span id="count">(0)</span></h3>
+    <ul id="list"></ul>
+
+    <div class="total">Total: <span id="total">$0.00</span></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
