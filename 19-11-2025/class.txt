@@ -1,0 +1,28 @@
+package day_1v4;
+
+public class OMRking {
+	void BMW520(){
+		System.out.println("King Car");	
+	}
+    public static void main(String[] args) {
+    People1 C = new People1();
+    C.bike();
+    C.car();
+    System.out.println(C.name_people1);    
+	}
+}
+class People1{
+	String name_people1="Naomi";
+	void car(){
+		System.out.println("People1 Car");
+	}
+	void bike(){
+		System.out.println("People1 Bike");
+	}
+}
+class People2{
+	String name_people1="Jeremy";
+	void car(){
+		System.out.println("People2 Car");
+}
+}

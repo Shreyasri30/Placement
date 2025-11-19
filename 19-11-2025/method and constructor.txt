@@ -1,0 +1,34 @@
+package day_1v3;
+
+public class OMRking {
+	public static void main(String[] args) 
+	{
+		Program1 program = new Program1(100);
+		program.addition();
+	}
+}
+class Program1{
+	int marks = 95;
+	protected void  addition(){
+		int result = marks*100;
+		System.out.println(result);
+		
+          class InsisdeClass{
+            void division(){
+	              System.out.println("method local inner class output");
+			}
+		}
+	}
+	{
+		System.out.println("Welcome");
+		String date ="19th NOv 2025";
+		System.out.println(date);
+	}
+	public Program1 (){
+		System.out.println("Iam a def const");
+	}
+	public Program1 (int a){
+		a = marks +a;
+		System.out.println(a);
+	}
+}
