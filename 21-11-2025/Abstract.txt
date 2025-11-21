@@ -1,0 +1,19 @@
+package day_2;
+
+abstract class Vehicle {
+    abstract void move();
+}
+
+class Car extends Vehicle {
+    void move() {
+        System.out.println("Car is moving");
+    }
+}
+
+public class Abstract {
+    public static void main(String[] args) {
+
+        Vehicle v = new Car(); 
+        v.move();
+    }
+}

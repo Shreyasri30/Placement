@@ -1,0 +1,23 @@
+package day_2;
+
+import java.util.Scanner;
+
+public class Finally {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a value: ");
+        int num = sc.nextInt();
+
+        try {
+            System.out.println("You entered: " + num);
+        }
+        catch (Exception e) {
+            System.out.println("Exception caught!");
+        }
+        finally {
+            System.out.println("Finally block executed");
+        }
+    }
+}

@@ -1,0 +1,32 @@
+package day_2;
+
+class VolumeCalculator {
+
+    int volume(int side) {
+        return side * side * side;  
+    }
+
+    int volume(int length, int breadth, int height) {
+        return length * breadth * height;  
+    }
+
+    double volume(double radius, double height) {
+        return 3.14 * radius * radius * height;  
+    }
+}
+
+public class OverloadingExample {
+    public static void main(String[] args) {
+
+        VolumeCalculator v = new VolumeCalculator();
+
+        int cube = v.volume(5);
+        int cuboid = v.volume(4, 3, 2);
+        double cylinder = v.volume(2.5, 10.0);
+
+        System.out.println("Cube Volume     : " + cube);
+        System.out.println("Cuboid Volume   : " + cuboid);
+        System.out.println("Cylinder Volume : " + cylinder);
+    }
+}
+

@@ -1,0 +1,40 @@
+package day_2;
+
+class Book {
+
+    private int pages;
+
+    public void setPages(int p) {
+        pages = p;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void addPages(int extra) {
+        pages += extra;
+    }
+
+    public void removePages(int less) {
+        pages -= less;
+    }
+}
+
+public class Encapsulation {
+
+    public static void main(String[] args) {
+
+        Book b = new Book();
+
+        b.setPages(120);
+        System.out.println("Initial Pages: " + b.getPages());
+
+        b.addPages(30);
+        System.out.println("After Adding Pages: " + b.getPages());
+
+        b.removePages(10);
+        System.out.println("After Removing Pages: " + b.getPages());
+    }
+}
+

@@ -1,0 +1,24 @@
+package day_2;
+
+import java.util.Scanner;
+
+public class ArrayEx {
+
+    public static void main(String[] args) {
+
+        int[] arr = {5, 15, 25, 35};   
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter index (0–3): ");
+        int index = sc.nextInt();
+
+        try {
+            int value = arr[index];
+            System.out.println("Element at index " + index + " = " + value);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Index is outside the valid range");
+        }
+    }
+}
