@@ -1,0 +1,41 @@
+package day_3;
+public class stringmethods {
+    public static void main(String[] args) {
+
+        String s = "Shreya";
+        String s2 = "Shreya is coding in Java";
+       
+        System.out.println("length(): " + s.length());
+        System.out.println("charAt(2): " + s.charAt(2));
+        System.out.println("substring(1, 4): " + s.substring(1, 4));
+        System.out.println("equals(): " + s.equals("shreya"));
+        System.out.println("equalsIgnoreCase(): " + s.equalsIgnoreCase("shreya"));
+        System.out.println("toUpperCase(): " + s.toUpperCase());
+        System.out.println("contains(\"coding\"): " + s2.contains("coding"));
+        System.out.println("indexOf('a'): " + s.indexOf('a'));
+        System.out.println("replace(\"Sh\", \"Sr\"): " + s.replace("Sh", "Sr"));
+        
+        String[] words = s2.split(" ");
+        System.out.print("split(): ");
+        for (String w : words) System.out.print("[" + w + "] ");
+        System.out.println();
+        String spaced = "   hello   ";
+        System.out.println("trim(): '" + spaced.trim() + "'");
+
+        System.out.println("String Buffer Methods");
+        StringBuffer sb = new StringBuffer("Hello");
+
+        sb.append(" World");
+        System.out.println("append(): " + sb);
+        sb.insert(5, " Java");
+        System.out.println("insert(): " + sb);
+        sb.replace(0, 5, "Hi");
+        System.out.println("replace(): " + sb);
+        sb.delete(2, 7);
+        System.out.println("delete(): " + sb);
+        sb.reverse();
+        System.out.println("reverse(): " + sb);
+
+        
+    }
+}
