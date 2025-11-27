@@ -1,0 +1,22 @@
+package day_4;
+import java.util.TreeSet;
+
+public class treeset {
+
+    public static void main(String[] args) {
+
+        TreeSet<String> vegetables = new TreeSet<>();
+
+        vegetables.add("Kathirikkai");
+        vegetables.add("Vendakkai");
+        vegetables.add("Keerai");
+        vegetables.add("Carrot");
+        vegetables.add("Carrot"); 
+        
+        System.out.println("Vegetables in TreeSet (sorted alphabetical order):\n" + vegetables);
+
+        vegetables.remove("Vendakkai");
+
+        System.out.println("\nAfter removing 'Vendakkai':\n" + vegetables);
+    }
+}

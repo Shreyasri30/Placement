@@ -1,0 +1,21 @@
+package day_4;
+
+import java.util.LinkedList;
+public class linkedList {
+	public static void main(String [] args) {
+		LinkedList<String> vegetables = new LinkedList<>();
+		vegetables.add("Kathirikkai");
+		vegetables.add("Vendakkai");
+		vegetables.add("Keerai");
+		
+		vegetables.add(1, "Carrot");
+		vegetables.add("Carrot");
+		System.out.println("Element at index 3: " + vegetables.get(3));
+		System.out.println("Linked List with duplicate elements: " + vegetables);
+		System.out.println("Duplicate elements: " + vegetables.get(1) + " and " + vegetables.get(4));
+		
+		System.out.println("Size: " + vegetables.size());
+		vegetables.remove("Vendakkai");
+		System.out.println("Size after removing Vendakkai: " + vegetables.size());
+	}
+}

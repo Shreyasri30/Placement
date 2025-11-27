@@ -1,0 +1,29 @@
+package day_4;
+import java.util.LinkedHashMap;
+
+public class linkedhashmap {
+	
+	    public static void main(String[] args) {
+
+	        LinkedHashMap<Integer, String> vegetables = new LinkedHashMap<>();
+
+	        vegetables.put(101, "Kathirikkai");
+	        vegetables.put(102, "Vendakkai");
+	        vegetables.put(103, "Keerai");  
+	        vegetables.put(104, "Carrot");
+
+	        System.out.println("Vegetables (in insertion order):");
+	        for (Integer id : vegetables.keySet()) {
+	            System.out.println(id + " = " + vegetables.get(id));
+	        }
+
+	        vegetables.remove(103);
+
+	        System.out.println("\nAfter removing ID 103:");
+	        for (Integer id : vegetables.keySet()) {
+	            System.out.println(id + " = " + vegetables.get(id));
+	        }
+	    }
+	}
+
+

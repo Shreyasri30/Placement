@@ -1,0 +1,22 @@
+package day_4;
+import java.util.LinkedHashSet;
+
+public class linkedhashset {
+
+    public static void main(String[] args) {
+
+        LinkedHashSet<String> vegetables = new LinkedHashSet<>();
+        vegetables.add("Kathirikkai");
+        vegetables.add("Vendakkai");
+        vegetables.add("Keerai");
+        vegetables.add("Carrot");
+        vegetables.add("Carrot"); 
+
+        System.out.println("Vegetables in LinkedHashSet (insertion order):\n" + vegetables);
+       
+        vegetables.remove("Keerai");
+
+        System.out.println("\nAfter removing 'Keerai':\n" + vegetables);
+    }
+}
+

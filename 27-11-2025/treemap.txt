@@ -1,0 +1,23 @@
+package day_4;
+import java.util.TreeMap;
+
+public class treemap {
+
+    public static void main(String[] args) {
+
+        TreeMap<Integer, String> vegetables = new TreeMap<>();
+
+        vegetables.put(104, "Carrot");
+        vegetables.put(102, "Vendakkai");
+        vegetables.put(101, "Kathirikkai");
+        vegetables.put(103, "Keerai");
+
+        System.out.println("TreeMap (sorted by key):\n" + vegetables);
+     
+
+        vegetables.remove(102);
+
+        System.out.println("\nAfter removing ID 102:\n" + vegetables);
+      
+    }
+}

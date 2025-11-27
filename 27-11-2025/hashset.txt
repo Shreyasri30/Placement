@@ -1,0 +1,26 @@
+package day_4;
+import java.util.HashSet;
+
+public class hashset {
+
+    public static void main(String[] args) {
+
+        HashSet<String> vegetables = new HashSet<>();
+
+        vegetables.add("Kathirikkai");
+        vegetables.add("Vendakkai");
+        vegetables.add("Keerai");
+        vegetables.add("Carrot");
+        vegetables.add("Carrot"); 
+
+        System.out.println("Vegetables in HashSet:");
+            System.out.println(vegetables);
+
+   
+        vegetables.remove("Keerai");
+
+        System.out.println("\nAfter removing 'Keerai':");
+            System.out.println(vegetables);
+    }
+}
+

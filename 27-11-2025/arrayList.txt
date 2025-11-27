@@ -1,0 +1,18 @@
+package day_4;
+
+import java.util.ArrayList;
+public class arrayList {
+	public static void main(String [] args) {
+		ArrayList<String> vegetables = new ArrayList<>();
+		vegetables.add("Kathirikkai");
+		vegetables.add("Vendakkai");
+		vegetables.add("Keerai");
+		
+		vegetables.add(1, "Carrot");
+		
+		System.out.println("Element at index 3: " + vegetables.get(3));
+		
+		vegetables.remove("Vendakkai");
+		System.out.println("Size: " + vegetables.size());
+	}
+}

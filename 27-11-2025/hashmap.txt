@@ -1,0 +1,21 @@
+package day_4;
+import java.util.HashMap;
+
+public class hashmap{
+
+    public static void main(String[] args) {
+
+        HashMap<Integer, String> vegetables = new HashMap<>();
+
+        vegetables.put(103, "Kathirikkai");
+        vegetables.put(104, "Vendakkai");
+        vegetables.put(101, "Keerai");
+        vegetables.put(102, "Carrot");
+
+        System.out.println("Vegetables in HashMap (order not guaranteed):\n" + vegetables);
+
+        vegetables.remove(103);
+
+        System.out.println("\nAfter removing ID 103:\n" + vegetables);
+    }
+}
