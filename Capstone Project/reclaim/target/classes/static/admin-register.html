@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclaim - Admin Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="display:flex; flex-direction:column; min-height:100vh;">
+
+    <div style="flex:1; display:flex; align-items:center; justify-content:center; width:100%;">
+        <div class="glass card animate-in"
+            style="width: 100%; max-width: 500px; padding: 40px; border-top: 4px solid var(--primary);">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <a href="/" class="brand" style="font-size: 2rem;">Reclaim.</a>
+                <h2 style="margin-top: 10px; color: var(--primary);">Admin Onboarding</h2>
+                <p style="margin-top: 5px; opacity: 0.7;">Validate your identity to create an admin account</p>
+            </div>
+
+            <form id="registerForm">
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Whitelist Email</label>
+                        <input type="email" id="email" placeholder="email@reclaim.app" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Unique Identifier ID (Security Code)</label>
+                    <input type="password" id="securityCode" placeholder="Enter your unique code" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Set Admin Password</label>
+                    <input type="password" id="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Register as
+                    Administrator</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 24px; font-size: 0.9rem;">
+                Already have an account? <a href="admin-login.html" style="color: var(--primary);">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const body = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                securityCode: document.getElementById('securityCode').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const res = await api("/api/auth/admin-register", {
+                    method: "POST",
+                    body: JSON.stringify(body)
+                });
+
+                toastOnce("Success", "Admin account created successfully. Please login.", "ok");
+                window.location.href = "admin-login.html";
+            } catch (err) {
+                alert(err.message || "Registration failed. Please check your credentials and whitelist status.");
+            }
+        });
+    </script>
+</body>
+
+</html>

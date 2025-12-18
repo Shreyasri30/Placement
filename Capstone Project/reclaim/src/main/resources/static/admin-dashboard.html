@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclaim - Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tab-btn {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            border-color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="top"></div>
+
+    <div class="container animate-in">
+        <header style="margin-bottom: 40px; display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h2 style="color: var(--primary);">System Overview</h2>
+                <p>Manage community reports and user access</p>
+            </div>
+            <div id="admin-stats" class="glass"
+                style="padding: 12px 24px; border-radius: 12px; display: flex; gap: 24px;">
+                <div><small style="opacity:0.7">TOTAL ITEMS</small><br><strong id="stat-total">0</strong></div>
+                <div><small style="opacity:0.7">ACTIVE</small><br><strong id="stat-active"
+                        style="color:#2ed573">0</strong></div>
+                <div><small style="opacity:0.7">TOTAL USERS</small><br><strong id="stat-users">0</strong></div>
+            </div>
+        </header>
+
+        <div class="glass card" style="padding: 0;">
+            <div style="display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 0 20px;">
+                <div class="tab-btn active" onclick="showTab('items')">Reported Items</div>
+                <div class="tab-btn" onclick="showTab('users')">User Management</div>
+            </div>
+
+            <div style="padding: 24px;">
+                <!-- Items Tab -->
+                <div id="items-tab" class="tab-content active">
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.7; font-size: 0.85rem;">
+                                    <th style="padding: 12px;">ITEM</th>
+                                    <th style="padding: 12px;">TYPE</th>
+                                    <th style="padding: 12px;">POSTED BY</th>
+                                    <th style="padding: 12px;">STATUS</th>
+                                    <th style="padding: 12px; text-align: right;">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="items-list">
+                                <tr>
+                                    <td colspan="5" style="padding: 40px; text-align: center; opacity: 0.5;">Loading
+                                        items...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div id="users-tab" class="tab-content">
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr
+                                    style="border-bottom: 1px solid rgba(255,255,255,0.1); opacity: 0.7; font-size: 0.85rem;">
+                                    <th style="padding: 12px;">USER</th>
+                                    <th style="padding: 12px;">EMAIL</th>
+                                    <th style="padding: 12px;">ROLE</th>
+                                    <th style="padding: 12px;">STATUS</th>
+                                    <th style="padding: 12px; text-align: right;">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-list">
+                                <tr>
+                                    <td colspan="5" style="padding: 40px; text-align: center; opacity: 0.5;">Loading
+                                        users...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", async () => {
+            await requireAdminOrRedirect();
+            await renderHeader("admin-dash");
+            refresh();
+        });
+
+        async function refresh() {
+            loadStats();
+            loadItems();
+            loadUsers();
+        }
+
+        function showTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+
+        async function loadStats() {
+            try {
+                const stats = await api("/api/admin/stats");
+                document.getElementById("stat-total").textContent = stats.totalItems;
+                document.getElementById("stat-active").textContent = stats.activeItems;
+                // stat-users will be updated after loadUsers
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadItems() {
+            try {
+                const items = await api("/api/admin/items");
+                const list = document.getElementById("items-list");
+                list.innerHTML = items.map(item => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="padding: 16px;"><strong>${item.title}</strong><br><small opacity="0.6">${item.location}</small></td>
+            <td style="padding: 16px;"><span class="badge ${item.type.toLowerCase()}">${item.type}</span></td>
+            <td style="padding: 16px;">${item.createdBy.name}</td>
+            <td style="padding: 16px;"><span class="badge" style="color: ${item.status === 'ACTIVE' ? '#2ed573' : '#ff6b81'}">${item.status}</span></td>
+            <td style="padding: 16px; text-align: right;">
+              <button onclick="resolveItem(${item.id})" class="btn btn-glass" style="color:#2ed573; border-color:#2ed573; font-size:0.7rem; padding:4px 8px;">Resolve</button>
+              <button onclick="deleteItem(${item.id})" class="btn btn-glass" style="color:#ff6b81; border-color:#ff6b81; font-size:0.7rem; padding:4px 8px;">Delete</button>
+            </td>
+          </tr>
+        `).join("");
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadUsers() {
+            try {
+                const users = await api("/api/admin/users");
+                document.getElementById("stat-users").textContent = users.length;
+                const list = document.getElementById("users-list");
+                list.innerHTML = users.map(u => `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+            <td style="padding: 16px;">${u.name}</td>
+            <td style="padding: 16px;">${u.email}</td>
+            <td style="padding: 16px;"><span class="badge">${u.role}</span></td>
+            <td style="padding: 16px;">${u.blocked ? '<span style="color:#ff6b81">BLOCKED</span>' : '<span style="color:#2ed573">ACTIVE</span>'}</td>
+            <td style="padding: 16px; text-align: right;">
+              ${u.role !== 'ADMIN' ? `
+                <button onclick="toggleBlock(${u.id})" class="btn btn-glass" style="font-size:0.7rem; padding:4px 8px;">${u.blocked ? 'Unblock' : 'Block'}</button>
+                <button onclick="deleteUser(${u.id})" class="btn btn-glass" style="color:#ff6b81; border-color:#ff6b81; font-size:0.7rem; padding:4px 8px;">Delete</button>
+              ` : '<em>System Protected</em>'}
+            </td>
+          </tr>
+        `).join("");
+            } catch (e) { console.error(e); }
+        }
+
+        async function toggleBlock(id) {
+            if (!confirm("Confirm status change for this user?")) return;
+            await api(`/api/admin/users/${id}/toggle-block`, { method: "POST" });
+            refresh();
+        }
+
+        async function deleteUser(id) {
+            if (!confirm("PERMANENTLY delete this user? All their items will be lost.")) return;
+            await api(`/api/admin/users/${id}`, { method: "DELETE" });
+            refresh();
+        }
+
+        async function resolveItem(id) {
+            await api(`/api/admin/items/${id}/resolve`, { method: "POST" });
+            refresh();
+        }
+
+        async function deleteItem(id) {
+            if (!confirm("Delete this post?")) return;
+            await api(`/api/admin/items/${id}`, { method: "DELETE" });
+            refresh();
+        }
+    </script>
+</body>
+
+</html>

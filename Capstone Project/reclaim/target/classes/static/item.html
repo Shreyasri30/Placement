@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reclaim - Item Details</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <nav class="navbar glass">
+    <a href="/" class="brand">Reclaim.</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="browse.html">Browse</a>
+    </div>
+  </nav>
+
+  <div class="container animate-in">
+    <div class="glass card">
+      <div class="grid grid-2">
+        <!-- Left: Image -->
+        <div>
+          <div class="glass"
+            style="height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 8px; position: relative;">
+            <img id="img" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+            <div id="no-img" style="color: var(--text-muted);">No Image</div>
+          </div>
+
+          <div id="upload-section" style="margin-top: 16px; display: none;">
+            <label class="btn btn-glass" style="display: block; text-align: center; cursor: pointer;">
+              Update Image
+              <input type="file" id="file" hidden accept="image/*">
+            </label>
+          </div>
+        </div>
+
+        <!-- Right: Details -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <h2 id="title">Loading...</h2>
+            <div id="badges">
+              <span id="badge-type" class="badge"></span>
+              <span id="badge-status" class="badge"></span>
+            </div>
+          </div>
+
+          <p id="meta" style="font-size: 1.1rem; color: var(--text-muted);">Loading...</p>
+
+          <div style="margin: 24px 0;">
+            <h4 style="margin-bottom: 8px;">Description</h4>
+            <p id="desc" style="white-space: pre-wrap;"></p>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <h4 style="margin-bottom: 8px;">Contact Info</h4>
+            <div class="glass" style="padding: 16px; display: inline-block; border-radius: 8px;">
+              <span id="contact"></span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div id="actions" style="margin-top: 32px;"></div>
+
+          <!-- Claims Scanner for Owner -->
+          <div id="claims-section" style="margin-top: 40px; display: none;">
+            <h3>Claims</h3>
+            <div id="claims-list" class="list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id");
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      if (!id) return window.location.href = "browse.html";
+      await load();
+    });
+
+    async function load() {
+      const me = await api("/api/auth/me");
+      const item = await api("/api/items/" + id);
+
+      document.title = "Reclaim - " + item.title;
+      document.getElementById("title").textContent = item.title;
+
+      const typeEl = document.getElementById("badge-type");
+      typeEl.textContent = item.type;
+      typeEl.className = "badge " + item.type.toLowerCase();
+
+      const statusEl = document.getElementById("badge-status");
+      statusEl.textContent = item.status;
+      statusEl.className = "badge " + (item.status === 'ACTIVE' ? 'found' : 'lost'); // reusing colors: found(green)/lost(red) roughly maps to active/resolved logic if we want, or custom
+      // Better logic:
+      statusEl.style.backgroundColor = item.status === 'ACTIVE' ? 'rgba(46, 213, 115, 0.2)' : 'rgba(233, 69, 96, 0.2)';
+      statusEl.style.color = item.status === 'ACTIVE' ? '#2ed573' : '#ff6b81';
+      statusEl.style.marginLeft = "8px";
+      document.getElementById("meta").textContent = `${item.category} • ${item.location} • ${item.eventDate}`;
+      document.getElementById("desc").textContent = item.description;
+      document.getElementById("contact").textContent = `${item.contactMethod}: ${item.contactValue}`;
+
+      if (item.imagePath) {
+        document.getElementById("img").src = item.imagePath;
+        document.getElementById("img").style.display = "block";
+        document.getElementById("no-img").style.display = "none";
+      }
+
+      const actions = document.getElementById("actions");
+      const isOwner = me && me.userId === item.createdBy.id;
+
+      if (isOwner) {
+        document.getElementById("upload-section").style.display = "block";
+        document.getElementById("claims-section").style.display = "block";
+
+        if (item.status === 'RESOLVED') {
+          actions.innerHTML = `
+                <div class="btn btn-glass" style="cursor: default; opacity: 0.7; background: rgba(46, 213, 115, 0.1); color: #2ed573; border-color: #2ed573;">Item Resolved</div>
+                <button onclick="deleteItem()" class="btn btn-glass" style="color: #ff6b81; border: 1px solid #ff6b81;">Delete</button>
+            `;
+        } else {
+          actions.innerHTML = `
+                <button onclick="resolveItem()" class="btn btn-primary">Mark as Resolved</button>
+                <button onclick="deleteItem()" class="btn btn-glass" style="color: #ff6b81; border: 1px solid #ff6b81;">Delete</button>
+            `;
+        }
+
+        loadClaims();
+
+        document.getElementById("file").addEventListener("change", async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const fd = new FormData();
+          fd.append("file", file);
+
+          // Custom fetch because api() assumes JSON
+          const res = await fetch("/api/items/" + id + "/image", { method: "POST", body: fd });
+          if (res.ok) window.location.reload();
+          else alert("Upload failed");
+        });
+
+      } else if (me) {
+        // Check if I have already claimed
+        const check = await api("/api/claims/item/" + id + "/check");
+        if (check.hasClaimed) {
+          actions.innerHTML = `
+                <div class="btn btn-glass" style="cursor: default; opacity: 0.8; background: rgba(59, 130, 246, 0.1); color: #3b82f6; border-color: #3b82f6;">
+                    Claim Status: ${check.status}
+                </div>
+            `;
+        } else {
+          actions.innerHTML = `
+                    <button onclick="claimItem()" class="btn btn-primary">Claim This Item</button>
+                 `;
+        }
+      }
+    }
+
+    async function loadClaims() {
+      const claims = await api("/api/claims/item/" + id);
+      const el = document.getElementById("claims-list");
+
+      if (!claims || claims.length === 0) {
+        el.innerHTML = "<p>No claims yet.</p>";
+        return;
+      }
+
+      el.innerHTML = claims.map(c => `
+                <div class="glass" style="padding: 16px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>${c.claimant.name}</strong> claimed this. Status: ${c.status}
+                    </div>
+                    ${c.status === 'PENDING' ? `
+                    <div>
+                        <button onclick="decideClaim(${c.id}, 'accept')" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.8rem;">Accept</button>
+                        <button onclick="decideClaim(${c.id}, 'reject')" class="btn btn-glass" style="padding: 4px 12px; font-size: 0.8rem;">Reject</button>
+                    </div>` : ''}
+                </div>
+            `).join("");
+    }
+
+    async function claimItem() {
+      if (!confirm("Are you sure you want to claim this item?")) return;
+      try {
+        await api("/api/claims/" + id, { method: "POST" });
+        alert("Claim submitted!");
+        window.location.reload();
+      } catch (e) { alert(e.message); }
+    }
+
+    async function decideClaim(cid, decision) {
+      try {
+        await api(`/api/claims/${cid}/${decision}`, { method: "POST" });
+        loadClaims();
+      } catch (e) { alert(e.message); }
+    }
+
+    async function resolveItem() {
+      if (!confirm("Mark as resolved?")) return;
+      await api("/api/items/" + id + "/resolve", { method: "POST" });
+      window.location.reload();
+    }
+
+    async function deleteItem() {
+      if (!confirm("Delete this post?")) return;
+      await api("/api/items/" + id, { method: "DELETE" });
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+
+</html>
